@@ -1,0 +1,62 @@
+.watch-image {
+  width: auto;
+  height: 100px;
+  object-fit: cover;
+}
+
+
+.watch {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 15px;
+  width: 350px;
+  text-align: left;
+  background: linear-gradient(135deg, #3f063f, #c582c5);
+  color: white;
+}
+
+.watch h4 {
+  background-color: lightpink;
+  background-clip: text;
+  /* For older browsers */
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+
+.watch-image {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.watch-image:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease-in-out;
+}
+
+.watchsite {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
