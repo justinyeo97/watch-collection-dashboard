@@ -11,6 +11,8 @@
   margin: 10px;
   border-radius: 15px;
   width: 350px;
+  min-height: 550px;
+  max-height: 550px;
   text-align: left;
   background: linear-gradient(135deg, #3f063f, #c582c5);
   color: white;
@@ -37,7 +39,7 @@
 }
 
 .watch-image:hover {
-  transform: scale(1.05);
+  transform: scale(1.1);
   transition: transform 0.2s ease-in-out;
 }
 
@@ -45,6 +47,12 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+}
+
+.watch-grid {
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  margin: 0 auto;
+  justify-items: center;
 }
 
 @keyframes gradientMove {
