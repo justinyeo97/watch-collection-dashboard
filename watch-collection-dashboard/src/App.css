@@ -68,3 +68,14 @@
     background-position: 0% 50%;
   }
 }
+
+
+.navbar {
+  background-color: #2a0143;
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
+  background-color: yellow;
+  background-size: 800% 800%;
+}
