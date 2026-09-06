@@ -104,7 +104,8 @@ function App() {
   const [showForm, setShowForm] = useState(false);
 
   function addWatch(newWatchData) {
-    const newId = (watchList.length + 1).toString();
+    const lastId = watchList.length ? Number(watchList[watchList.length - 1].id) : 0;
+    const newId = (lastId + 1).toString();
     setWatchList(prev => [...prev, { id: newId, ...newWatchData }]);
   }
 
@@ -148,7 +149,7 @@ function WatchDisplay({ watches, deleteWatch, maxWatches = 3 }) {
   const [currentPage, setCurrentPage] = useState(1);
   const watchesPerPage = maxWatches;
 
-  //useEffect keeps the display synced with the array update from deleting object. Error showing is false positive.
+  //Biggest Bug: useEffect keeps the display synced with the array update when deleting object. Error showing is false positive.
   useEffect(() => {
     setDisplayWatches(watches);
   }, [watches]);
@@ -184,7 +185,7 @@ function WatchDisplay({ watches, deleteWatch, maxWatches = 3 }) {
     setCurrentPage(1);
     setDisplayWatches(watches);
   }
-  //filtering logic
+  //Hard Code #1 filtering logic
   function filterWatches() {
     const filtered = watches.filter(watch => {
       const brandMatch = selectedBrand === 'All' || watch.brand === selectedBrand;
@@ -233,7 +234,7 @@ function WatchDisplay({ watches, deleteWatch, maxWatches = 3 }) {
         <button className="filter-btn" onClick={handleReset}>Reset</button>
       </div>
 
-      {/* Display filtered watches */}
+      {/* Hard Code #2 Display filtered watches */}
       <div className="container justify-content-center">
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 watch-grid">
           {pagedWatches.map(watch => (
@@ -305,7 +306,7 @@ function WatchCounter({ watches }) {
   );
 }
 
-//Add a new watch to the collection
+//Hard Code 3: Add a new watch to the collection
 function AddWatch({ addWatch, onClose }) {
   const [brand, setBrand] = useState('');
   const [modelName, setModelName] = useState('');
@@ -314,7 +315,7 @@ function AddWatch({ addWatch, onClose }) {
   const [caseDiameter, setCaseDiameter] = useState('');
   const [movementType, setMovementType] = useState('');
   const [imageUrl, setImageUrl] = useState('');
-
+  //capitalize first letter of input
   function capitalize(str) {
     return str.replace(/\b\w/g, c => c.toUpperCase());
   }
