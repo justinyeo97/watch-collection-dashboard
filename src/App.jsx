@@ -266,7 +266,7 @@ function WatchDisplay({ watches, deleteWatch, maxWatches = 3 }) {
 
 // Watch component to display watch details
 function Watch({ watch, deleteWatch }) {
-  const placeholder = '/src/assets/Chronotelier.png';
+  const placeholder = '/Chronotelier.png';
   return (
     <div className="watch">
       <img src={watch.imageUrl ? watch.imageUrl : placeholder} alt={watch.modelName} className="watch-image" />
