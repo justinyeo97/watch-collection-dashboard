@@ -1,35 +1,38 @@
-.watch-image {
-  width: auto;
-  height: 100px;
-  object-fit: cover;
+@import url('https://googleapis.com');
+
+body {
+  font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
 }
 
-
 .watch {
-  border: 1px solid #ccc;
+  border: 5px solid #F7E7CE;
+  border-style: ridge;
   padding: 20px;
   margin: 10px;
   border-radius: 15px;
-  width: 350px;
+  width: 100%;
   min-height: 550px;
   max-height: 550px;
   text-align: left;
-  background: linear-gradient(135deg, #3f063f, #c582c5);
-  color: white;
+  background-color: rgba(255, 255, 255, 0.849);
+  color: black;
 }
 
 .watch h4 {
-  background-color: lightpink;
+  background: linear-gradient(270deg, #885ba7, #441161);
   background-clip: text;
-  /* For older browsers */
   -webkit-background-clip: text;
+  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
   color: transparent;
 }
 
 
 .watch-image {
   width: 200px;
-  height: 200px;
+  max-width: 100%;
+  height: auto;
+  min-height: 200px;
+  max-height: 200px;
   object-fit: cover;
   display: block;
   margin: 0 auto;
@@ -49,12 +52,6 @@
   justify-content: flex-start;
 }
 
-.watch-grid {
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  margin: 0 auto;
-  justify-items: center;
-}
-
 @keyframes gradientMove {
   0% {
     background-position: 0% 50%;
@@ -72,10 +69,80 @@
 
 .navbar {
   background-color: #2a0143;
-  color: white;
+  color: rgb(0, 0, 0);
   border-radius: 5px;
   padding: 10px;
   width: 100%;
-  background-color: yellow;
   background-size: 800% 800%;
+}
+
+.logo {
+  max-height: 80px;
+  width: auto;
+  background-color: transparent;
+}
+
+.filters,
+.page-nav {
+  justify-content: center;
+  display: flex
+}
+
+.filter-select,
+.nav-btn {
+  width: auto;
+  background-color: #F7E7CE;
+  border-radius: 5px;
+  border: 2px ridge;
+  margin: 2px;
+}
+
+.filter-btn,
+.nav-btn {
+  width: auto;
+  background-color: #F7E7CE;
+  border-radius: 5px;
+  border: 2px outset;
+  margin: 2px;
+}
+
+.collection-name {
+  color: #c59d38b3;
+  text-shadow: 0px 0px 10px #f1efe8b3;
+}
+
+.watch-counter {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  border: 2px solid #F7E7CE;
+  border-radius: 10px;
+  padding: 0 8px;
+}
+
+.watch-counter p {
+  margin: 0;
+  line-height: 1;
+  font-size: 16px;
+}
+
+.watch-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-watch {
+  width: auto;
+  max-width: 100px;
+  background-color: #F7E7CE;
+  border-radius: 5px;
+  border: 2px outset;
+  margin: 2px;
+}
+
+.add-watch-form {
+  background-color: #e2dfda;
+  border-radius: 10px;
+
 }
