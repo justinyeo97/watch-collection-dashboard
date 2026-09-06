@@ -55,8 +55,48 @@ const watches = [
     caseDiameterMm: 42.5,
     movementType: "Automatic",
     imageUrl: "https://www.seikowatches.com/us-en/-/media/Images/Product--Image/All/Seiko/2022/06/02/11/39/SSK003K1/SSK003K1.png?mh=1200&mw=1200"
-  }
+  },
+  {
+    id: "6",
+    brand: "Timex",
+    modelName: "Marlin Hand-Wound",
+    modelNumber: "TW2T18200",
+    price: 209,
+    caseDiameterMm: 34,
+    movementType: "Manual",
+    imageUrl: "https://timex.com/cdn/shop/files/TW2R47900.png?v=1788227030&width=768"
+  },
 
+  {
+    id: "7",
+    brand: "Timex",
+    modelName: "Expedition Scout",
+    modelNumber: "T49961",
+    price: 65,
+    caseDiameterMm: 40,
+    movementType: "Quartz",
+    imageUrl: "https://timex.com/cdn/shop/files/T49961_dfeaae83-964c-4f1d-a7b7-c0114fa51ee7.png?v=1786996865"
+  },
+  {
+    id: "8",
+    brand: "Tissot",
+    modelName: "Seastar 1000 Powermatic 80",
+    modelNumber: "T120.407.11.051.00",
+    price: 795,
+    caseDiameterMm: 43,
+    movementType: "Automatic",
+    imageUrl: "https://www.tissotwatches.com/dw/image/v2/BKKD_PRD/on/demandware.static/-/Sites-Tissot-Catalogue/default/dwf51e793a/product-pictures/cfece5b8-ea04-45a9-aeaf-6199b8c6e622_T120-807-11-051-00_Shadow.png?sm=cut&sw=1000&sh=1000,gravity=center"
+  },
+  {
+    id: "9",
+    brand: "Tissot",
+    modelName: "Gentleman Powermatic 80 Silicium",
+    modelNumber: "T127.407.11.041.00",
+    price: 825,
+    caseDiameterMm: 40,
+    movementType: "Automatic",
+    imageUrl: "https://www.tissotwatches.com/dw/image/v2/BKKD_PRD/on/demandware.static/-/Sites-Tissot-Catalogue/default/dwfefc9a58/product-pictures/60a7cc9f-da27-48e8-9a1a-dd63463d9954_T127_407_11_041_00.png"
+  }
 ];
 
 function App() {
@@ -82,17 +122,24 @@ function App() {
           New Watch
         </button>
         {showForm && (
-          <AddWatch addWatch={addWatch} onClose={() => setShowForm(false)} />
+          <>
+            <div className="overlay" onClick={() => setShowForm(false)}></div>
+            <AddWatch addWatch={addWatch} onClose={() => setShowForm(false)} />
+          </>
+
         )}
       </div>
       <WatchDisplay watches={watchList} deleteWatch={deleteWatch} />
+      <footer className="footer">
+        <p>© 2024 Chronotelier. All rights reserved.</p>
+      </footer>
     </div >
   )
 };
 
 //--WATCH DISPLAY COMPONENT--
 // WatchDisplay component to display a grid of watches
-function WatchDisplay({ watches, deleteWatch, maxWatches = 6 }) {
+function WatchDisplay({ watches, deleteWatch, maxWatches = 3 }) {
   const [selectedBrand, setSelectedBrand] = useState('All');
   const [selectedPriceRange, setSelectedPriceRange] = useState('All');
   const [selectedMovementType, setSelectedMovementType] = useState('All');
@@ -101,10 +148,9 @@ function WatchDisplay({ watches, deleteWatch, maxWatches = 6 }) {
   const [currentPage, setCurrentPage] = useState(1);
   const watchesPerPage = maxWatches;
 
-//useEffect keeps the display synced with the array update from deleting object. Error showing is false positive.
+  //useEffect keeps the display synced with the array update from deleting object. Error showing is false positive.
   useEffect(() => {
     setDisplayWatches(watches);
-    setCurrentPage(1);
   }, [watches]);
 
   const brands = ['All', ...new Set(watches.map(w => w.brand))];
@@ -113,7 +159,7 @@ function WatchDisplay({ watches, deleteWatch, maxWatches = 6 }) {
   const caseDiameters = ['All', ...new Set(watches.map(w => w.caseDiameterMm))];
 
 
-
+  //event handlers
   function handleBrandChange(e) {
     setSelectedBrand(e.target.value);
   }
@@ -128,7 +174,6 @@ function WatchDisplay({ watches, deleteWatch, maxWatches = 6 }) {
   function handleCaseDiameterChange(e) {
     setSelectedCaseDiameter(e.target.value);
   }
-
 
   function handleReset() {
     setSelectedBrand('All');
@@ -206,7 +251,7 @@ function WatchDisplay({ watches, deleteWatch, maxWatches = 6 }) {
           Previous
         </button>
 
-        <span style={{ margin: '0 1rem' }}>Page {currentPage}</span>
+        <span className="page-num" style={{ margin: '0 1rem' }}>Page {currentPage}</span>
 
         <button className="nav-btn" onClick={() => setCurrentPage(currentPage + 1)} disabled={isNextDisabled}>
           Next
@@ -260,6 +305,7 @@ function WatchCounter({ watches }) {
   );
 }
 
+//Add a new watch to the collection
 function AddWatch({ addWatch, onClose }) {
   const [brand, setBrand] = useState('');
   const [modelName, setModelName] = useState('');
@@ -269,15 +315,19 @@ function AddWatch({ addWatch, onClose }) {
   const [movementType, setMovementType] = useState('');
   const [imageUrl, setImageUrl] = useState('');
 
+  function capitalize(str) {
+    return str.replace(/\b\w/g, c => c.toUpperCase());
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
     addWatch({
-      brand,
-      modelName,
+      brand: capitalize(brand.trim()),
+      modelName: capitalize(modelName.trim()),
       modelNumber,
       price: parseFloat(price),
       caseDiameterMm: parseFloat(caseDiameter),
-      movementType,
+      movementType: capitalize(brand.trim()),
       imageUrl,
     });
     onClose();
@@ -285,13 +335,13 @@ function AddWatch({ addWatch, onClose }) {
 
   return (
     <form onSubmit={handleSubmit} className="add-watch-form">
-      <input placeholder="Brand" value={brand} onChange={e => setBrand(e.target.value)} required />
-      <input placeholder="Model Name" value={modelName} onChange={e => setModelName(e.target.value)} required />
-      <input placeholder="Model Number" value={modelNumber} onChange={e => setModelNumber(e.target.value)} required />
-      <input type="number" placeholder="Price" value={price} onChange={e => setPrice(e.target.value)} required />
-      <input type="number" placeholder="Case Diameter mm" value={caseDiameter} onChange={e => setCaseDiameter(e.target.value)} required />
-      <input placeholder="Movement Type" value={movementType} onChange={e => setMovementType(e.target.value)} required />
-      <input placeholder="Image URL" value={imageUrl || ""} onChange={e => setImageUrl(e.target.value)} />
+      <input className="form-input" placeholder="Brand" value={brand} onChange={e => setBrand(e.target.value)} required />
+      <input className="form-input" placeholder="Model Name" value={modelName} onChange={e => setModelName(e.target.value)} required />
+      <input className="form-input" placeholder="Model Number" value={modelNumber} onChange={e => setModelNumber(e.target.value)} required />
+      <input className="form-input" type="number" placeholder="Price ($)" value={price} onChange={e => setPrice(e.target.value)} required />
+      <input className="form-input" type="number" placeholder="Case Diameter mm" value={caseDiameter} onChange={e => setCaseDiameter(e.target.value)} required />
+      <input className="form-input" placeholder="Movement Type" value={movementType} onChange={e => setMovementType(e.target.value)} required />
+      <input className="form-input" placeholder="Image URL" value={imageUrl || ""} onChange={e => setImageUrl(e.target.value)} />
       <br></br>
       <button className="submit-btn" type="submit">Add Watch</button>
       <button className="submit-btn" type="button" onClick={onClose}>Cancel</button>
