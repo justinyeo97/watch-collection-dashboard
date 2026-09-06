@@ -289,7 +289,7 @@ function Navbar({ watches }) {
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
         <a className="navbar-brand" href="#">
-          <img className="logo" src="/src/assets/Chronotelier.png" alt="Chronotelier Logo" />
+          <img className="logo" src="/public/Chronotelier.png" alt="Chronotelier Logo" />
         </a>
         <WatchCounter watches={watches} />
       </div>
